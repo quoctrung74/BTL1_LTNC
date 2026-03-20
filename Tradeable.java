@@ -7,6 +7,7 @@ public interface Tradeable {
 
     default String getTradingInfo() {
         // TODO
-        throw new UnsupportedOperationException("TODO");
+        String status = isAvailableForTrading()?"Available":"Not Available";
+        return "Tradeable: " + getSymbol() + " at $" + getCurrentPriceValue() + " (" + status + ")";
     }
 }
