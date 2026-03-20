@@ -7,75 +7,107 @@ public class Portfolio implements Observable<String> {
     private final List<Observer<String>> observers;
 
     public Portfolio(String portfolioId, String ownerName) {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        this.portfolioId = portfolioId;
+        this.ownerName = ownerName;
+        this.positions = new ArrayList<>();
+        this.observers = new ArrayList<>();
     }
 
     public void addPosition(Instrument inst, int qty, double costBasis) {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        Position exist = null;
+        for (Position p:positions){
+            if (p.getInstrument().getSymbol().equals(inst.getSymbol())){
+                exist = p;
+                break;
+            }
+        } 
+        if (p != null){
+            exits.addQuantity(qty, costBasis);
+        } else {
+            positions.add(new Position(inst, qty, costBasic));
+        }
+        notifyObservers("ADDED: " + inst.getSymbol() + " x" + qty);
     }
 
     public void removePosition(String symbol) throws PositionNotFoundException {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        Position needRemove = getPosition(symbol);
+        positions.remove(needRemove);
+        notifyObservers("REMOVE: " + symbol);
     }
 
     public double totalMarketValue() {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        double resultTotalMarketValue = 0;
+        for (Position p : positions){
+            result += p.marketValue();
+        }
+        return result;
     }
 
     public double totalUnrealizedPnL() {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        double resultTotalUnrealizedPnL = 0;
+        for (Position p : positions){
+            resultTotalUnrealizedPnL += p.unrealizedPnL();
+        }
+        return resultTotalUnrealizedPnL;
     }
 
     public Position getPosition(String symbol) throws PositionNotFoundException {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        for (Position p : positions){
+            if (p.getInstrument().getSymbol().equals(symbol)){
+                return p;
+            }
+        }
+        throw new PositionNotFoundException();
     }
 
     public List<Position> getPositionsSortedByValue() {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        List<Position> sorted = new ArrayList<>(positions);
+        sorted.sort((p1,p2)->Double.compare(p2.marketValue(), p1.marketValue()));
+        return sorted;
     }
 
     public Map<String, Double> allocationByAssetClass() {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        Map<String, Double> allocations = new HashMap<>();
+        for (Position p:positions){
+            String asset = p.getInstrument().assetClass();
+            double value = p.marketValue();
+            Double currentTotalValue = allocations.get(asset);
+            if (currentTotalValue == null){
+                currentTotalValue = 0.0;
+            }
+            allocations.put(asset, currentTotalValue + value);
+        }
+        return allocations;
     }
 
     public void revalueAll(PricingStrategy strategy) {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        for (Position p : positions){
+            double fairValue = strategy.calculateFairValue(p.getInstrument());
+            p.getInstrument().updatePrice(fairValue);
+        }
+        notifyObservers("REVALUED: " + strategy.strategyName());
     }
 
     @Override
     public void addObserver(Observer<String> observer) {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        observers.add(observer);
     }
 
     @Override
     public void removeObserver(Observer<String> observer) {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        observers.remove(observer);
     }
 
     @Override
     public void notifyObservers(String event) {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        for (Observer<String> obs : observers) obs.onEvent(event);
     }
 
     public String getPortfolioId() {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        return portfolioId;
     }
 
     public String getOwnerName() {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        return ownerName;
     }
 }
