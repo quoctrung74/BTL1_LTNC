@@ -13,7 +13,7 @@ public class Bond extends Instrument {
     public double riskScore() {
         // TODO
         if (maturityYears > 10){
-            return 4.0
+            return 4.0;
         } else {
             return 2.0;
         }

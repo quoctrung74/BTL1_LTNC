@@ -1,10 +1,10 @@
 public class SimplePricingStrategy implements PricingStrategy{
     @Override
-    double calculateFairValue(Instrument instrument){
+    public double calculateFairValue(Instrument instrument){
         return instrument.getCurrentPriceValue()*1.05;
     }
     @Override
-    String strategyName(){
+    public String strategyName(){
         return "SimplePricingStrategy";
     }
 }

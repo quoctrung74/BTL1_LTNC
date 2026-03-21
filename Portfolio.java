@@ -21,10 +21,10 @@ public class Portfolio implements Observable<String> {
                 break;
             }
         } 
-        if (p != null){
-            exits.addQuantity(qty, costBasis);
+        if (exist != null){
+            exist.addQuantity(qty, costBasis);
         } else {
-            positions.add(new Position(inst, qty, costBasic));
+            positions.add(new Position(inst, qty, costBasis));
         }
         notifyObservers("ADDED: " + inst.getSymbol() + " x" + qty);
     }
@@ -38,9 +38,9 @@ public class Portfolio implements Observable<String> {
     public double totalMarketValue() {
         double resultTotalMarketValue = 0;
         for (Position p : positions){
-            result += p.marketValue();
+            resultTotalMarketValue += p.marketValue();
         }
-        return result;
+        return resultTotalMarketValue;
     }
 
     public double totalUnrealizedPnL() {
@@ -57,7 +57,7 @@ public class Portfolio implements Observable<String> {
                 return p;
             }
         }
-        throw new PositionNotFoundException();
+        throw new PositionNotFoundException("Position not found: " + symbol);
     }
 
     public List<Position> getPositionsSortedByValue() {

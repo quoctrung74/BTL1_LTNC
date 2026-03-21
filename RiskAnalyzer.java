@@ -26,9 +26,9 @@ public class RiskAnalyzer<T extends Instrument> {
         }
         T instHighestRiskScore = instruments.get(0);
         long size = instruments.size();
-        for (int i=1; i<size; i++)){
+        for (int i=1; i<size; i++){
             if (instruments.get(i).riskScore() > instHighestRiskScore.riskScore()){
-                instHighestRiskScore = inst;
+                instHighestRiskScore = instruments.get(i);
             }
         }
         return instHighestRiskScore;
@@ -40,9 +40,9 @@ public class RiskAnalyzer<T extends Instrument> {
         }
         T instLowestRiskScore = instruments.get(0);
         long size = instruments.size();
-        for (int i=1; i<size; i++)){
+        for (int i=1; i<size; i++){
             if (instruments.get(i).riskScore() < instLowestRiskScore.riskScore()){
-                instLowestRiskScore = inst;
+                instLowestRiskScore = instruments.get(i);
             }
         }
         return instLowestRiskScore;

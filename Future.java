@@ -20,7 +20,7 @@ public class Future extends Derivative {
     }
     public double getContractSize() {
         // TODO
-        retrun contractSize;
+        return contractSize;
     }
 
     public int getExpiryDays() {

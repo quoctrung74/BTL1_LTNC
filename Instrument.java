@@ -55,18 +55,18 @@ public abstract class Instrument implements Tradeable, Priceable{
 
     // Implement methods of Tradeable.java
     @Override
-    boolean isAvailableForTrading(){
+    public boolean isAvailableForTrading(){
         return true;
     }
 
     // Implement methods of Priceable.java
     @Override
-    double getPriceChange(double previousPrice){
+    public double getPriceChange(double previousPrice){
         return this.currentPrice - previousPrice;
     }
 
     @Override
-    double getPriceChangePercent(double previousPrice){
+    public double getPriceChangePercent(double previousPrice){
         if (previousPrice == 0) return 0;
         return ((this.currentPrice - previousPrice) / previousPrice) * 100;
     }

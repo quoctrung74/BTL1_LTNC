@@ -22,8 +22,8 @@ public class Position {
 
     public void addQuantity(int qty, double costBasis) {
         // TODO
-        this.quaytity += qty;
-        double totalCost = (this.quantity * this.averageCostBasis) + (qty * costBasic);
+        this.quantity += qty;
+        double totalCost = (this.quantity * this.averageCostBasis) + (qty * costBasis);
         this.averageCostBasis = totalCost/this.quantity;
     }
 

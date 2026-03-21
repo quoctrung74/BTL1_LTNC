@@ -25,7 +25,7 @@ public class Option extends Derivative {
         if (isCall){
             return spotPrice > strikePrice;
         } else {
-            retrun spotPrice < strikePrice;
+            return spotPrice < strikePrice;
         }
     }
 
