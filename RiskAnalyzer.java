@@ -4,27 +4,60 @@ public class RiskAnalyzer<T extends Instrument> {
     private final List<T> instruments = new ArrayList<>();
 
     public void add(T instrument) {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        if (instrument != null){
+            instruments.add(instrument);
+        }
     }
 
     public double averageRisk() {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        if (instruments.isEmpty()){
+            return 0;
+        }
+        double totalRiskScore = 0;
+        for (T inst : instruments){
+            totalRiskScore += inst.riskScore();
+        }
+        return totalRiskScore / instruments.size();
     }
 
     public T highestRisk() {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        if (instruments.isEmpty()){
+            return null;
+        }
+        T instHighestRiskScore = instruments.get(0);
+        long size = instruments.size();
+        for (int i=1; i<size; i++)){
+            if (instruments.get(i).riskScore() > instHighestRiskScore.riskScore()){
+                instHighestRiskScore = inst;
+            }
+        }
+        return instHighestRiskScore;
     }
 
     public T lowestRisk() {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        if (instruments.isEmpty()){
+            return null;
+        }
+        T instLowestRiskScore = instruments.get(0);
+        long size = instruments.size();
+        for (int i=1; i<size; i++)){
+            if (instruments.get(i).riskScore() < instLowestRiskScore.riskScore()){
+                instLowestRiskScore = inst;
+            }
+        }
+        return instLowestRiskScore;
     }
 
     public List<T> getAboveRiskThreshold(double threshold) {
-        // TODO
-        throw new UnsupportedOperationException("TODO");
+        if (instruments.isEmpty()){
+            return new ArrayList<>();
+        }
+        List<T> instAboveRiskThreshold = new ArrayList<>();
+        for (T inst : instruments){
+            if (inst.riskScore() > threshold){
+                instAboveRiskThreshold.add(inst);
+            }
+        }
+        return instAboveRiskThreshold;
     }
 }
