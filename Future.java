@@ -14,7 +14,10 @@ public class Future extends Derivative {
         // TODO
         return 8.5;
     }
-
+    @Override
+    public void accept(InstrumentVisitor visitor){
+        visitor.visit(this);
+    }
     public double getContractSize() {
         // TODO
         retrun contractSize;

@@ -16,7 +16,10 @@ public class Option extends Derivative {
         // TODO
         return 8.5;
     }
-    
+    @Override
+    public void accept(InstrumentVisitor visitor){
+        visitor.visit(this);
+    }
     public boolean isInTheMoney(double spotPrice) {
         // TODO
         if (isCall){

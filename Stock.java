@@ -27,6 +27,10 @@ public class Stock extends Instrument {
         return "EQUITY";
     }
     
+    @Override
+    public void accept(InstrumentVisitor visitor){
+        visitor.visit(this);
+    }
     public double getMarketCap() {
         // TODO
         return marketCap;
